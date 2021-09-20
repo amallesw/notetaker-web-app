@@ -1,24 +1,63 @@
 {
     "data_structure": {
         "folders": [
-            {
+            {   
+                "id": 1,
                 "folder_name": "folder 1",
-                "notepages": []
+                "folder_components": []
             },
             {
+                "id": 2,
                 "folder_name": "folder 2",
-                "notepages": [
+                "folder_components": [
                     {
-                        "notepage_name": "Notes 1",
-                        "content": "**Here, you can write your notes!"
+                        "id": 3,
+                        "is_notepage": true,
+                        "elements": {
+                            "notepage_name": "Notes 1",
+                            "content": "**Here, you can write your notes!"
+                        }
                     },
                     {
-                        "notepage_name": "Notes 2",
-                        "content": "**Here, you can write your notes!"
+                        "id": 4,
+                        "is_notepage": false,
+                        "elements": {
+                            "subfolder_name": "subfolder 1",
+                            "subfolder_pages": [
+                                {
+                                    "id": 5,
+                                    "is_notepage": true,
+                                    "elements": {
+                                        "notepage_name": "Notes 2",
+                                        "content": "**Here, you can write your notes!"
+                                    }
+                                },
+                                {
+                                    "id": 6,
+                                    "is_notepage": true,
+                                    "elements": {
+                                        "notepage_name": "Notes 7",
+                                        "content": "**Here, you can write your notes!"
+                                    }
+                                }
+                            ]
+                        }
                     },
                     {
-                        "notepage_name": "Notes 3",
-                        "content": "**Here, you can write your notes!"
+                        "id": 7,
+                        "is_notepage": true,
+                        "elements": {
+                            "notepage_name": "Notes 4",
+                            "content": "**Here, you can write your notes!"
+                        }
+                    },
+                    {
+                        "id": 8,
+                        "is_notepage": true,
+                        "elements": {
+                            "notepage_name": "Notes 5",
+                            "content": "**Here, you can write your notes!"
+                        }
                     }
                 ]
             }

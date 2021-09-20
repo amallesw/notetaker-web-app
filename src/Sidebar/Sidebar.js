@@ -8,29 +8,70 @@ export default function Sidebar() {
 
     const staticjson = {
         "folders": [
-            {
+            {   
+                "id": 1,
                 "folder_name": "folder 1",
-                "notepages": []
+                "folder_components": []
             },
             {
+                "id": 2,
                 "folder_name": "folder 2",
-                "notepages": [
+                "folder_components": [
                     {
-                        "notepage_name": "Notes 1",
-                        "content": "**Here, you can write your notes!"
+                        "id": 3,
+                        "is_notepage": true,
+                        "elements": {
+                            "notepage_name": "Notes 1",
+                            "content": "**Here, you can write your notes!"
+                        }
                     },
                     {
-                        "notepage_name": "Notes 2",
-                        "content": "**Here, you can write your notes!"
+                        "id": 4,
+                        "is_notepage": false,
+                        "elements": {
+                            "subfolder_name": "subfolder 1",
+                            "subfolder_pages": [
+                                {
+                                    "id": 5,
+                                    "is_notepage": true,
+                                    "elements": {
+                                        "notepage_name": "Notes 2",
+                                        "content": "**Here, you can write your notes!"
+                                    }
+                                },
+                                {
+                                    "id": 6,
+                                    "is_notepage": true,
+                                    "elements": {
+                                        "notepage_name": "Notes 7",
+                                        "content": "**Here, you can write your notes!"
+                                    }
+                                }
+                            ]
+                        }
                     },
                     {
-                        "notepage_name": "Notes 3",
-                        "content": "**Here, you can write your notes!"
+                        "id": 7,
+                        "is_notepage": true,
+                        "elements": {
+                            "notepage_name": "Notes 4",
+                            "content": "**Here, you can write your notes!"
+                        }
+                    },
+                    {
+                        "id": 8,
+                        "is_notepage": true,
+                        "elements": {
+                            "notepage_name": "Notes 5",
+                            "content": "**Here, you can write your notes!"
+                        }
                     }
                 ]
             }
         ]
     };
+
+    const nodeId_counter = 1;
 
     return (
         <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -50,10 +91,26 @@ export default function Sidebar() {
                         >
                             {staticjson.folders.map((folder, folder_index) => {
                                 return (
-                                <TreeItem nodeId={(1 + folder_index).toString()} label={folder.folder_name} >
-                                    {folder.notepages.map((notepage, notepage_index) => {
-                                        return (<TreeItem nodeId={(1 + folder_index + notepage_index + 1).toString()} label={notepage.notepage_name}/>);
+                                <TreeItem nodeId={(folder.id).toString()} label={folder.folder_name} className="text-gray-900">
+
+                                    {folder.folder_components.map((component, component_index) => {
+                                        if (component.is_notepage) {
+                                            return (
+                                            <TreeItem nodeId={(component.id).toString()} label={component.elements.notepage_name} className="text-gray-400"/>
+                                            );
+                                        }
+                                        else {
+                                            return (
+                                            <TreeItem nodeId={(component.id).toString()} label={component.elements.subfolder_name} className="text-gray-900">
+                                                {component.elements.subfolder_pages.map((notepage, notepage_index) => {
+                                                    return (<TreeItem nodeId={(notepage.id).toString()} label={notepage.elements.notepage_name} className="text-gray-400"/>);
+                                                })}
+                                            </TreeItem>
+                                            );
+                                        }
+                                        
                                     })}
+
                                 </TreeItem>
                                 );
                             })}
