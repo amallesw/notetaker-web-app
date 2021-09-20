@@ -1,0 +1,27 @@
+{
+    "data_structure": {
+        "folders": [
+            {
+                "folder_name": "folder 1",
+                "notepages": []
+            },
+            {
+                "folder_name": "folder 2",
+                "notepages": [
+                    {
+                        "notepage_name": "Notes 1",
+                        "content": "**Here, you can write your notes!"
+                    },
+                    {
+                        "notepage_name": "Notes 2",
+                        "content": "**Here, you can write your notes!"
+                    },
+                    {
+                        "notepage_name": "Notes 3",
+                        "content": "**Here, you can write your notes!"
+                    }
+                ]
+            }
+        ]
+    }
+}
