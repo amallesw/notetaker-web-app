@@ -19,14 +19,14 @@ export const notesSlice = createSlice({
 
         createSubFolder: (state, action) => {
             const id = NODE_ID;
-            const folderPos = action.payload.folderPos;
+            const folderPos = action.payload.folderPos.value;
 
             state.folders[folderPos].folder_components.push(
                 {
                     id: id,
                     is_notepage: false,
                     elements: {
-                        subfolder_name: "subfoldr 1",
+                        subfolder_name: action.payload.subfolder_name,
                         subfolder_pages: []
                     }
                 });
@@ -34,7 +34,10 @@ export const notesSlice = createSlice({
         },
         createPage: (state, action) => {
             const id = NODE_ID;
-            const folderPos = action.payload.folderPos;
+            console.log("****")
+            console.log(id);
+            const folderPos = action.payload.folderPos.value;
+            console.log(folderPos);
 
             state.folders[folderPos].folder_components.push(
                 {
@@ -46,10 +49,27 @@ export const notesSlice = createSlice({
                     }
                 })
             NODE_ID++;
+        },
+        createPageV2: (state, action) => {
+            const id = NODE_ID;
+            const folderPos = action.payload.folderPos;
+            const subfolderPos = action.payload.subfolderPos;
+
+            state.folders[folderPos].folder_components[subfolderPos].elements.subfolder_pages.push(
+                {
+                    id: id,
+                    is_notepage: false,
+                    elements: {
+                        notepage_name: "nameeeeeeeeeee",
+                        content: "**Here, you can take notes!**"
+                    }
+                }
+            );
+            NODE_ID++;
         }
 
     }
 });
 
-export const { createFolder, createSubFolder, createPage } = notesSlice.actions;
+export const { createFolder, createSubFolder, createPage, createPageV2 } = notesSlice.actions;
 export default notesSlice.reducer;

@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import CreateFolderModal from '../Modals/CreateFolderModal';
 import { useState } from 'react';
 import AddNewItem from '../Modals/AddNewSubfolder';
+import AddNewPage from '../Modals/AddNewPage';
 
 export default function Sidebar() {
 
@@ -116,13 +117,13 @@ export default function Sidebar() {
                 </button>
                 <AddNewItem showModal={showModalAddSubfolder} setShowModal={setShowModalAddfolder} />
 
-                {/* <button
-                    className="mt-3 hover:border-gray-900 border rounded-lg w-3/4 p-1 hover:text-gray-900 bg-gray-900 text-white hover:bg-white"
+                <button
+                    className="mt-3 border-gray-900 border rounded-lg w-3/4 p-1 text-gray-900 hover:bg-gray-900 hover:text-white"
                     onClick={openModalAddNotepage}
                 >
-                    Create Subfolder
+                    Create Notepage
                 </button>
-                <AddNewItem showModal={showModalAdd} setShowModal={setShowModalAdd} /> */}
+                <AddNewPage showModal={showModalAddNotepage} setShowModal={setShowModalAddNotepage} />
 
                 <div className="mt-4 border-t border-gray-700">
                     <div className="mt-8 text-gray-500">

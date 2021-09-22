@@ -3,10 +3,23 @@ import { Fragment, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
-import { createSubFolder } from '../features/notesSlice';
+import { createPage } from '../features/notesSlice';
 import { useSelector } from 'react-redux';
+import { ConstructionOutlined } from '@mui/icons-material';
+import AddNewPage2 from './AddNewPage2';
 
-export default function AddNewItem({ showModal, setShowModal }) {
+export default function AddNewPage({ showModal, setShowModal }) {
+
+    console.log(setShowModal)
+    const [showModalPickSubfolder, setShowModalPickfolder] = useState(false);
+
+    const openModalAddSubfolder = submitData => {
+        // if () {
+        //     setShowModalAddfolder(true);
+        // }
+        
+        setShowModalPickfolder(true);
+    }
 
     const { folders } = useSelector((state) => state.folders);
 
@@ -15,6 +28,7 @@ export default function AddNewItem({ showModal, setShowModal }) {
         label: folder.folder_name,
         folder_name: folder.folder_name,
     }));
+
 
     let [isOpen, setIsOpen] = useState(true)
 
@@ -29,10 +43,12 @@ export default function AddNewItem({ showModal, setShowModal }) {
     const onSubmit = submitData => {
         console.log("submitting...")
         console.log(submitData);
-        dispatch(createSubFolder({ ...submitData }))
+        dispatch(createPage(submitData))
+        setShowModalPickfolder(true);
         closeModal();
-        reset({ "subfolder_name": "" })
+        reset({ "folderPos": "" })
     }
+
 
     return (
         <>
@@ -72,13 +88,13 @@ export default function AddNewItem({ showModal, setShowModal }) {
                             leaveTo="opacity-0 scale-95"
                         >
 
-                            <form onSubmit={handleSubmit(onSubmit)}>
+                            <form onSubmit={handleSubmit(onSubmit, openModalAddSubfolder)}>
                                 <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                                     <Dialog.Title
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     >
-                                        Create Subfolder
+                                        Create New Page
                                     </Dialog.Title>
 
                                     <Controller
@@ -94,21 +110,18 @@ export default function AddNewItem({ showModal, setShowModal }) {
                                             />
                                         )}
                                     />
-                                    <div className="mt-4">
-                                        <input
-                                            className="w-full p-1 border-b rounded hover:border-gray-500"
-                                            placeholder="Subfolder name"
-                                            {...register("subfolder_name", { required: true })}
-                                        />
-                                        {errors.exampleRequired && <span>This field is required</span>}
-                                    </div>
+
+                                    
+                                    
                                     <div className="mt-8 ">
                                         <button
                                             type="submit"
                                             className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                            onClick={openModalAddSubfolder}
                                         >
-                                            Create Subfolder
+                                            Next
                                         </button>
+                                        <AddNewPage2 showModal={showModalPickSubfolder} setShowModal={setShowModalPickfolder} />
                                     </div>
                                 </div>
                             </form>

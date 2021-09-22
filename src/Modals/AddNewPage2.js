@@ -1,21 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import { createPageV2 } from '../features/notesSlice';
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
-import { createSubFolder } from '../features/notesSlice';
-import { useSelector } from 'react-redux';
 
-export default function AddNewItem({ showModal, setShowModal }) {
-
-    const { folders } = useSelector((state) => state.folders);
-
-    const folderData = folders.map((folder, index) => ({
-        value: index,
-        label: folder.folder_name,
-        folder_name: folder.folder_name,
-    }));
-
+export default function AddNewPage2({ showModal, setShowModal }) {
     let [isOpen, setIsOpen] = useState(true)
 
     const dispatch = useDispatch();
@@ -29,10 +19,12 @@ export default function AddNewItem({ showModal, setShowModal }) {
     const onSubmit = submitData => {
         console.log("submitting...")
         console.log(submitData);
-        dispatch(createSubFolder({ ...submitData }))
+        dispatch(createPageV2(submitData));
         closeModal();
-        reset({ "subfolder_name": "" })
+        reset({ "folder_name": "" })
     }
+
+
 
     return (
         <>
@@ -71,45 +63,38 @@ export default function AddNewItem({ showModal, setShowModal }) {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-
                             <form onSubmit={handleSubmit(onSubmit)}>
+
                                 <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                                     <Dialog.Title
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     >
-                                        Create Subfolder
+                                        Create A Folder
                                     </Dialog.Title>
 
                                     <Controller
-                                        name="folderPos"
+                                        name="subfolderPos"
                                         isClearable
                                         control={control}
                                         render={({ field }) => (
                                             <Select
                                                 className="mt-8"
                                                 {...field}
-                                                options={folderData}
-                                                placeholder="Select folder"
+                                                // options={folderData}
+                                                placeholder="Select subfolder"
                                             />
                                         )}
                                     />
-                                    <div className="mt-4">
-                                        <input
-                                            className="w-full p-1 border-b rounded hover:border-gray-500"
-                                            placeholder="Subfolder name"
-                                            {...register("subfolder_name", { required: true })}
-                                        />
-                                        {errors.exampleRequired && <span>This field is required</span>}
-                                    </div>
-                                    <div className="mt-8 ">
+                                    <div className="mt-8">
                                         <button
                                             type="submit"
                                             className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                                         >
-                                            Create Subfolder
+                                            Create Folder
                                         </button>
                                     </div>
+
                                 </div>
                             </form>
                         </Transition.Child>
