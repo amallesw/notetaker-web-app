@@ -5,23 +5,12 @@ import { useDispatch } from 'react-redux';
 import Select from 'react-select';
 import { createPage } from '../features/notesSlice';
 import { useSelector } from 'react-redux';
-import { ConstructionOutlined } from '@mui/icons-material';
 import AddNewPage2 from './AddNewPage2';
 
 export default function AddNewPage({ showModal, setShowModal }) {
 
-    console.log(setShowModal)
-    const [showModalPickSubfolder, setShowModalPickfolder] = useState(false);
-
-    const openModalAddSubfolder = submitData => {
-        // if () {
-        //     setShowModalAddfolder(true);
-        // }
-        
-        setShowModalPickfolder(true);
-    }
-
     const { folders } = useSelector((state) => state.folders);
+    const [openP2, setOpenP2] = useState(false);
 
     const folderData = folders.map((folder, index) => ({
         value: index,
@@ -29,8 +18,9 @@ export default function AddNewPage({ showModal, setShowModal }) {
         folder_name: folder.folder_name,
     }));
 
+    console.log(folderData)
 
-    let [isOpen, setIsOpen] = useState(true)
+    let [isOpen, setIsOpen] = useState(true);
 
     const dispatch = useDispatch();
 
@@ -39,14 +29,36 @@ export default function AddNewPage({ showModal, setShowModal }) {
     }
 
     const { register, handleSubmit, reset, formState, formState: { errors, isSubmitSuccessful }, control } = useForm();
+    const { register: register2, handleSubmit: handleSubmit2, reset: reset2, formState: formState2, control: control2 } = useForm();
+    let subfolderData = folderData;
 
     const onSubmit = submitData => {
         console.log("submitting...")
         console.log(submitData);
-        dispatch(createPage(submitData))
-        setShowModalPickfolder(true);
-        closeModal();
         reset({ "folderPos": "" })
+        setOpenP2(true);
+
+        subfolderData = folders[submitData.folderPos.value].folder_components.map((subfolder, index) => {
+            if (!subfolder.is_notepage) {
+                return (
+                    {
+                        value: index,
+                        label: subfolder.elements.subfolder_name,
+                        subfolder_name: subfolder.elements.subfolder_name,
+                    }
+                );
+            }
+        })
+
+        console.log(subfolderData)
+    }
+
+    const onSubmit2 = submitData => {
+        console.log("submitting...")
+        console.log(submitData);
+        // dispatch(createPage(submitData))
+        closeModal();
+        reset({ "subfolderPos": "" })
     }
 
 
@@ -88,15 +100,15 @@ export default function AddNewPage({ showModal, setShowModal }) {
                             leaveTo="opacity-0 scale-95"
                         >
 
-                            <form onSubmit={handleSubmit(onSubmit, openModalAddSubfolder)}>
-                                <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                                    <Dialog.Title
-                                        as="h3"
-                                        className="text-lg font-medium leading-6 text-gray-900"
-                                    >
-                                        Create New Page
-                                    </Dialog.Title>
+                            <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                                <Dialog.Title
+                                    as="h3"
+                                    className="text-lg font-medium leading-6 text-gray-900"
+                                >
+                                    Create New Page
+                                </Dialog.Title>
 
+                                <form onSubmit={handleSubmit(onSubmit)}>
                                     <Controller
                                         name="folderPos"
                                         isClearable
@@ -111,20 +123,46 @@ export default function AddNewPage({ showModal, setShowModal }) {
                                         )}
                                     />
 
-                                    
-                                    
+                                    <div>
+                                        <input 
+                                        type="submit"  
+                                        className="mt-8 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                        />
+                                    </div>
+                                </form>
+
+                                {openP2 ? (
+                                    <form onSubmit={handleSubmit2(onSubmit2)}>
+                                    <Controller
+                                        name="subfolderPos"
+                                        isClearable
+                                        control={control2}
+                                        render={({ field }) => (
+                                            <Select
+                                                className="mt-8"
+                                                {...field}
+                                                options={subfolderData}
+                                                placeholder="Select subfolder"
+                                            />
+                                        )}
+                                    />
+
                                     <div className="mt-8 ">
                                         <button
                                             type="submit"
                                             className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                            onClick={openModalAddSubfolder}
                                         >
                                             Next
                                         </button>
-                                        <AddNewPage2 showModal={showModalPickSubfolder} setShowModal={setShowModalPickfolder} />
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                                ) : null}
+                                
+
+
+
+                            </div>
+
                         </Transition.Child>
                     </div>
                 </Dialog>
