@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
+
 
 let NODE_ID = 1;
 
@@ -48,6 +49,7 @@ export const notesSlice = createSlice({
                     {
                         id: id,
                         is_notepage: false,
+                        uuid: nanoid(),
                         elements: {
                             notepage_name: action.payload.notepage_name,
                             content: "**Here, you can take notes!**"
@@ -61,6 +63,7 @@ export const notesSlice = createSlice({
                     {
                         id: id,
                         is_notepage: true,
+                        uuid: nanoid(),
                         elements: {
                             notepage_name: action.payload.notepage_name,
                             content: "**Here, you can take notes!**"

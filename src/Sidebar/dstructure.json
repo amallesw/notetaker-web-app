@@ -27,6 +27,7 @@
                                 {
                                     "id": 5,
                                     "is_notepage": true,
+                                    "uuid": "adsfasf32421adf",
                                     "elements": {
                                         "notepage_name": "Notes 2",
                                         "content": "**Here, you can write your notes!"

@@ -5,6 +5,7 @@ import * as React from "react";
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 
 export default function NotesPage() {
@@ -15,8 +16,8 @@ export default function NotesPage() {
         tasklists: true
       });
 
-    const [selectedTab, setSelectedTab] = useState("write");
-    const [value, setValue] = useState("**Here, you can write your notes!**");
+    const [selectedTab, setSelectedTab] = useState("preview");
+    const [value, setValue] = useState("**Welcome to notetaker**");
 
 
     return (
@@ -24,7 +25,7 @@ export default function NotesPage() {
             <Sidebar />
             <div className="relative md:ml-64 bg-gray-50 h-screen">
                 <div className="mx-24 pt-8">
-                    <h3 className="text-gray-900 font-extralight text-3xl">Notes 1</h3>
+                    <h3 className="text-gray-900 font-extralight text-3xl">Welcome to Notetaker!</h3>
 
                     <div className=" mt-16">
                         <div className="h-full border">
