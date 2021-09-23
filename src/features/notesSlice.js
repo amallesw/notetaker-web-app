@@ -35,25 +35,44 @@ export const notesSlice = createSlice({
         createPage: (state, action) => {
             const id = NODE_ID;
             console.log("****")
-            console.log(id);
-            const folderPos = action.payload.folderPos.value;
-            console.log(folderPos);
+            console.log(action.payload)
+            const folderPos = action.payload.folderPos;
+            const subfolderPos = action.payload.subfolderPos?.value;
 
-            state.folders[folderPos].folder_components.push(
-                {
-                    id: id,
-                    is_notepage: true,
-                    elements: {
-                        notepage_name: "nameee",
-                        content: "**Here, you can take notes!**"
+
+
+            console.log("val " + action.payload.subfolderPos?.value)
+            if (action.payload.subfolderPos) {
+                console.log("doing in subfolder")
+                state.folders[folderPos].folder_components[subfolderPos].elements.subfolder_pages.push(
+                    {
+                        id: id,
+                        is_notepage: false,
+                        elements: {
+                            notepage_name: action.payload.notepage_name,
+                            content: "**Here, you can take notes!**"
+                        }
                     }
-                })
+                );
+            }
+            else {
+                console.log("skipping subfolder");
+                state.folders[folderPos].folder_components.push(
+                    {
+                        id: id,
+                        is_notepage: true,
+                        elements: {
+                            notepage_name: action.payload.notepage_name,
+                            content: "**Here, you can take notes!**"
+                        }
+                    })
+            }
             NODE_ID++;
         },
         createPageV2: (state, action) => {
             const id = NODE_ID;
             const folderPos = action.payload.folderPos;
-            const subfolderPos = action.payload.subfolderPos;
+            const subfolderPos = action.payload.subfolderPos.value;
 
             state.folders[folderPos].folder_components[subfolderPos].elements.subfolder_pages.push(
                 {

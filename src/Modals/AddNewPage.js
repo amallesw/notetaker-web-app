@@ -11,6 +11,8 @@ export default function AddNewPage({ showModal, setShowModal }) {
 
     const { folders } = useSelector((state) => state.folders);
     const [openP2, setOpenP2] = useState(false);
+    const [openP1, setOpenP1] = useState(true);
+    const [folderPos, setFolderPos] = useState(0);
 
     const folderData = folders.map((folder, index) => ({
         value: index,
@@ -22,45 +24,23 @@ export default function AddNewPage({ showModal, setShowModal }) {
 
     let [isOpen, setIsOpen] = useState(true);
 
-    const dispatch = useDispatch();
-
     function closeModal() {
+        setOpenP2(false);
         setShowModal(false);
+        setOpenP1(true);
     }
 
     const { register, handleSubmit, reset, formState, formState: { errors, isSubmitSuccessful }, control } = useForm();
-    const { register: register2, handleSubmit: handleSubmit2, reset: reset2, formState: formState2, control: control2 } = useForm();
-    let subfolderData = folderData;
 
     const onSubmit = submitData => {
         console.log("submitting...")
         console.log(submitData);
         reset({ "folderPos": "" })
         setOpenP2(true);
+        setOpenP1(false);
+        setFolderPos(submitData.folderPos.value);
 
-        subfolderData = folders[submitData.folderPos.value].folder_components.map((subfolder, index) => {
-            if (!subfolder.is_notepage) {
-                return (
-                    {
-                        value: index,
-                        label: subfolder.elements.subfolder_name,
-                        subfolder_name: subfolder.elements.subfolder_name,
-                    }
-                );
-            }
-        })
-
-        console.log(subfolderData)
     }
-
-    const onSubmit2 = submitData => {
-        console.log("submitting...")
-        console.log(submitData);
-        // dispatch(createPage(submitData))
-        closeModal();
-        reset({ "subfolderPos": "" })
-    }
-
 
     return (
         <>
@@ -108,56 +88,38 @@ export default function AddNewPage({ showModal, setShowModal }) {
                                     Create New Page
                                 </Dialog.Title>
 
-                                <form onSubmit={handleSubmit(onSubmit)}>
-                                    <Controller
-                                        name="folderPos"
-                                        isClearable
-                                        control={control}
-                                        render={({ field }) => (
-                                            <Select
-                                                className="mt-8"
-                                                {...field}
-                                                options={folderData}
-                                                placeholder="Select folder"
-                                            />
-                                        )}
-                                    />
-
-                                    <div>
-                                        <input 
-                                        type="submit"  
-                                        className="mt-8 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                
+                                {openP1 ? (
+                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                        <Controller
+                                            name="folderPos"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Select
+                                                    className="mt-8"
+                                                    isClearable
+                                                    {...field}
+                                                    options={folderData}
+                                                    placeholder="Select folder for new notepage (required)"
+                                                />
+                                            )}
                                         />
-                                    </div>
-                                </form>
+
+                                        <div>
+                                            <input
+                                                type="submit"
+                                                className="mt-8 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                            />
+                                        </div>
+                                    </form>
+
+                                ) : null}
+
 
                                 {openP2 ? (
-                                    <form onSubmit={handleSubmit2(onSubmit2)}>
-                                    <Controller
-                                        name="subfolderPos"
-                                        isClearable
-                                        control={control2}
-                                        render={({ field }) => (
-                                            <Select
-                                                className="mt-8"
-                                                {...field}
-                                                options={subfolderData}
-                                                placeholder="Select subfolder"
-                                            />
-                                        )}
-                                    />
-
-                                    <div className="mt-8 ">
-                                        <button
-                                            type="submit"
-                                            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                        >
-                                            Next
-                                        </button>
-                                    </div>
-                                </form>
+                                    <AddNewPage2 folderPos={folderPos} />
                                 ) : null}
-                                
+
 
 
 
