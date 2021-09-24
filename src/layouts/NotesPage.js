@@ -17,7 +17,7 @@ export default function NotesPage() {
       });
 
     const [selectedTab, setSelectedTab] = useState("preview");
-    const [value, setValue] = useState("**Welcome to notetaker**");
+    const [value, setValue] = useState("**Welcome to NoteTaker!**")
 
 
     return (

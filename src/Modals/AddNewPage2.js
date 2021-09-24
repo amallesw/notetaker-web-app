@@ -11,7 +11,7 @@ export default function AddNewPage2({ folderPos }) {
 
     const { folders } = useSelector((state) => state.folders);
 
-    console.log(folderPos);
+    console.log("FOLDERPOS" + folderPos);
     const dispatch = useDispatch();
 
     const onSubmit = submitData => {
@@ -26,13 +26,23 @@ export default function AddNewPage2({ folderPos }) {
         if (!subfolder.is_notepage) {
             return (
                 {
-                    value: index,
-                    label: subfolder.elements.subfolder_name,
-                    subfolder_name: subfolder.elements.subfolder_name,
-                }
+                value: index,
+                label: subfolder.elements.subfolder_name,
+                subfolder_name: subfolder.elements.subfolder_name,
+            }
             );
         }
-    })
+        else {
+            return null;
+        }
+    }).filter((subfolder) => {
+        console.log("filtering: " + subfolder);
+        console.log(subfolder !== null)
+        return (subfolder !== null);
+    });
+    
+    console.log("SUBFOLDERDATA")
+    console.log(subfolderData)
 
 
 
