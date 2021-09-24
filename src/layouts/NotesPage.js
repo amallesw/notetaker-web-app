@@ -14,10 +14,28 @@ export default function NotesPage() {
         simplifiedAutoLink: true,
         strikethrough: true,
         tasklists: true
-      });
+    });
 
     const [selectedTab, setSelectedTab] = useState("preview");
-    const [value, setValue] = useState("**Welcome to NoteTaker!**")
+    function welcomeText() {
+        return `
+**Welcome to NoteTaker!**
+
+NoteTaker uses markdown in order to make writing notes easy, organized, and efficient.
+
+Markdown allows features like:
+
+**Bold Text**
+
+*Italicized Text*
+
+> Quoting
+
+${"`and code`"}
+        
+        `
+    };
+    const [value, setValue] = useState(welcomeText())
 
 
     return (
