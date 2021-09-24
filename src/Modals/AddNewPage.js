@@ -117,7 +117,7 @@ export default function AddNewPage({ showModal, setShowModal }) {
 
 
                                 {openP2 ? (
-                                    <AddNewPage2 folderPos={folderPos} />
+                                    <AddNewPage2 folderPos={folderPos} closeModal={closeModal} />
                                 ) : null}
 
 

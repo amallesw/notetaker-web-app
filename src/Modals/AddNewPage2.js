@@ -5,7 +5,7 @@ import { createPage, createPageV2 } from "../features/notesSlice";
 import { useDispatch } from "react-redux";
 
 
-export default function AddNewPage2({ folderPos }) {
+export default function AddNewPage2({ folderPos, closeModal }) {
 
     const { register, handleSubmit, reset, formState, formState: { errors, isSubmitSuccessful }, control } = useForm();
 
@@ -18,7 +18,7 @@ export default function AddNewPage2({ folderPos }) {
         console.log("submitting...")
         console.log({ ...submitData, folderPos });
         dispatch(createPage({ ...submitData, folderPos }))
-        // closeModal();
+        closeModal();
         reset({ "subfolderPos": "" })
     }
 
