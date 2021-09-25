@@ -11,12 +11,9 @@ export default function AddNewPage2({ folderPos, closeModal }) {
 
     const { folders } = useSelector((state) => state.folders);
 
-    console.log("FOLDERPOS" + folderPos);
     const dispatch = useDispatch();
 
     const onSubmit = submitData => {
-        console.log("submitting...")
-        console.log({ ...submitData, folderPos });
         dispatch(createPage({ ...submitData, folderPos }))
         closeModal();
         reset({ "subfolderPos": "" })
@@ -36,13 +33,9 @@ export default function AddNewPage2({ folderPos, closeModal }) {
             return null;
         }
     }).filter((subfolder) => {
-        console.log("filtering: " + subfolder);
-        console.log(subfolder !== null)
         return (subfolder !== null);
     });
     
-    console.log("SUBFOLDERDATA")
-    console.log(subfolderData)
 
 
 

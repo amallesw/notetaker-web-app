@@ -17,7 +17,6 @@ export default function Sidebar() {
     const [showModalAddSubfolder, setShowModalAddfolder] = useState(false);
     const [showModalAddNotepage, setShowModalAddNotepage] = useState(false);
     const { folders } = useSelector((state) => state.folders);
-    console.log(folders)
 
 
     const staticjson = {

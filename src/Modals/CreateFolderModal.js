@@ -16,8 +16,6 @@ export default function CreateFolderModal({ showModal, setShowModal }) {
     const { register, handleSubmit, reset, formState, formState: { errors, isSubmitSuccessful } } = useForm();
 
     const onSubmit = submitData => {
-        console.log("submitting...")
-        console.log(submitData);
         dispatch(createFolder(submitData));
         closeModal();
         reset({ "folder_name": "" })

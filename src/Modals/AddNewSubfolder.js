@@ -27,8 +27,6 @@ export default function AddNewItem({ showModal, setShowModal }) {
     const { register, handleSubmit, reset, formState, formState: { errors, isSubmitSuccessful }, control } = useForm();
 
     const onSubmit = submitData => {
-        console.log("submitting...")
-        console.log(submitData);
         dispatch(createSubFolder({ ...submitData }))
         closeModal();
         reset({ "subfolder_name": "" })

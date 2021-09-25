@@ -20,7 +20,6 @@ export default function AddNewPage({ showModal, setShowModal }) {
         folder_name: folder.folder_name,
     }));
 
-    console.log(folderData)
 
     let [isOpen, setIsOpen] = useState(true);
 
@@ -33,8 +32,6 @@ export default function AddNewPage({ showModal, setShowModal }) {
     const { register, handleSubmit, reset, formState, formState: { errors, isSubmitSuccessful }, control } = useForm();
 
     const onSubmit = submitData => {
-        console.log("submitting...")
-        console.log(submitData);
         reset({ "folderPos": "" })
         setOpenP2(true);
         setOpenP1(false);

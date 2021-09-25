@@ -10,7 +10,6 @@ export const notesSlice = createSlice({
     },
     reducers: {
         createFolder: (state, action) => {
-            console.log(action.payload);
             const id = NODE_ID;
             const folder_name = action.payload.folder_name;
 
@@ -35,16 +34,12 @@ export const notesSlice = createSlice({
         },
         createPage: (state, action) => {
             const id = NODE_ID;
-            console.log("****")
-            console.log(action.payload)
             const folderPos = action.payload.folderPos;
             const subfolderPos = action.payload.subfolderPos?.value;
 
 
 
-            console.log("val " + action.payload.subfolderPos?.value)
             if (action.payload.subfolderPos) {
-                console.log("doing in subfolder")
                 state.folders[folderPos].folder_components[subfolderPos].elements.subfolder_pages.push(
                     {
                         id: id,
@@ -58,7 +53,6 @@ export const notesSlice = createSlice({
                 );
             }
             else {
-                console.log("skipping subfolder");
                 state.folders[folderPos].folder_components.push(
                     {
                         id: id,

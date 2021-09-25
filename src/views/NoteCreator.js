@@ -7,11 +7,6 @@ import { useSelector } from "react-redux";
 export default function NotesCreator() {
 
     const { folderPos, subPos, notePos, uuid } = useParams();
-    console.log("HERE IS ID")
-    console.log(uuid);
-    console.log(folderPos)
-    console.log(subPos)
-    console.log(typeof(notePos));
 
     const { folders } = useSelector((state) => state.folders);
 
@@ -25,9 +20,6 @@ export default function NotesCreator() {
     else {
         notepage = folder_components[subPos].elements.subfolder_pages[notePos].elements;
     }
-
-    console.log(notepage);
-
 
     const converter = new Showdown.Converter({
         tables: true,
