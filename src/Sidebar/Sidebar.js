@@ -4,6 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import CreateFolderModal from '../Modals/CreateFolderModal';
 import { useState } from 'react';
@@ -144,14 +145,21 @@ export default function Sidebar() {
                                                 {folder.folder_components.map((component, component_index) => {
                                                     if (component.is_notepage) {
                                                         return (
-                                                            <TreeItem nodeId={(component.id).toString()} label={component.elements.notepage_name} className="text-gray-400" />
+                                                            <Link to={"/notespage/" + folder_index + "/" + component_index + "/" + + -1 + "/" + component.uuid}>
+                                                                <TreeItem nodeId={(component.id).toString()} label={component.elements.notepage_name} className="text-gray-400" />
+                                                            </Link>
+
                                                         );
                                                     }
                                                     else {
                                                         return (
                                                             <TreeItem nodeId={(component.id).toString()} label={component.elements.subfolder_name} className="text-gray-900">
                                                                 {component.elements.subfolder_pages.map((notepage, notepage_index) => {
-                                                                    return (<TreeItem nodeId={(notepage.id).toString()} label={notepage.elements.notepage_name} className="text-gray-400" />);
+                                                                    return (
+                                                                        <Link to={"/notespage/" + folder_index + "/" + component_index + "/" + notepage_index + "/" + notepage.uuid}>
+                                                                            <TreeItem nodeId={(notepage.id).toString()} label={notepage.elements.notepage_name} className="text-gray-400" />
+                                                                        </Link>
+                                                                    );
                                                                 })}
                                                             </TreeItem>
                                                         );

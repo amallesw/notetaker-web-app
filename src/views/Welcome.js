@@ -1,33 +1,9 @@
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
-export default function NotesCreator() {
 
-    const { folderPos, subPos, notePos, uuid } = useParams();
-    console.log("HERE IS ID")
-    console.log(uuid);
-    console.log(folderPos)
-    console.log(subPos)
-    console.log(typeof(notePos));
-
-    const { folders } = useSelector((state) => state.folders);
-
-    let notepage = "";
-    const folder_components = folders[folderPos].folder_components;
-
-    if (notePos === "-1") {
-        notepage = folder_components[subPos].elements;
-    }
-
-    else {
-        notepage = folder_components[subPos].elements.subfolder_pages[notePos].elements;
-    }
-
-    console.log(notepage);
-
+export default function Welcome() {
 
     const converter = new Showdown.Converter({
         tables: true,
@@ -36,16 +12,34 @@ export default function NotesCreator() {
         tasklists: true
     });
 
-    const [selectedTab, setSelectedTab] = useState("write");
+    const [selectedTab, setSelectedTab] = useState("preview");
 
-    const [value, setValue] = useState(notepage.content)
 
+    function welcomeText() {
+        return `
+**Welcome to NoteTaker!**
+
+NoteTaker uses markdown in order to make writing notes easy, organized, and efficient.
+
+Markdown allows features like:
+
+**Bold Text**
+
+*Italicized Text*
+
+> Quoting
+
+${"`and code`"}
+        
+        `
+    };
+    const [value, setValue] = useState(welcomeText())
 
     return (
         <>
             <div className="relative md:ml-64 bg-gray-50 h-screen">
                 <div className="mx-24 pt-8">
-                    <h3 className="text-gray-900 font-extralight text-3xl">{notepage.notepage_name}</h3>
+                    <h3 className="text-gray-900 font-extralight text-3xl">Welcome to Notetaker!</h3>
 
                     <div className=" mt-16">
                         <div className="h-full border">
@@ -66,7 +60,6 @@ export default function NotesCreator() {
                     </div>
                 </div>
             </div>
-
         </>
-    );
+    )
 }
