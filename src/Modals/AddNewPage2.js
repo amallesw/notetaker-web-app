@@ -1,7 +1,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { useSelector } from "react-redux";
 import Select from 'react-select';
-import { createPage, createPageV2 } from "../features/notesSlice";
+import { createPage } from "../features/notesSlice";
 import { useDispatch } from "react-redux";
 
 

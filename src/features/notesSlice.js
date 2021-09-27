@@ -66,26 +66,19 @@ export const notesSlice = createSlice({
             }
             NODE_ID++;
         },
-        createPageV2: (state, action) => {
-            const id = NODE_ID;
-            const folderPos = action.payload.folderPos;
-            const subfolderPos = action.payload.subfolderPos.value;
+        updateNotes: (state, action) => {
+            console.log(action.payload);
 
-            state.folders[folderPos].folder_components[subfolderPos].elements.subfolder_pages.push(
-                {
-                    id: id,
-                    is_notepage: false,
-                    elements: {
-                        notepage_name: "nameeeeeeeeeee",
-                        content: "**Here, you can take notes!**"
-                    }
-                }
-            );
-            NODE_ID++;
+            const folder_components = state.folders[action.payload.folderPos].folder_components;
+            if (action.payload.notePos === "-1") {
+                folder_components[action.payload.subPos].elements.content = action.payload.content;
+            }
+            else {
+                folder_components[action.payload.subPos].elements.subfolder_pages[action.payload.notePos].elements.content = action.payload.content;
+            }
         }
-
     }
 });
 
-export const { createFolder, createSubFolder, createPage, createPageV2 } = notesSlice.actions;
+export const { createFolder, createSubFolder, createPage, updateNotes} = notesSlice.actions;
 export default notesSlice.reducer;

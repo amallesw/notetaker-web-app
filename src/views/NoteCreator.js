@@ -2,13 +2,20 @@ import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateNotes } from "../features/notesSlice";
+import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 
 export default function NotesCreator() {
+
+    const dispatch = useDispatch();
 
     const { folderPos, subPos, notePos, uuid } = useParams();
 
     const { folders } = useSelector((state) => state.folders);
+    console.log("FOLDERS")
+    console.log(folders);
+    console.log(folderPos, subPos, notePos, uuid);
 
     let notepage = "";
     const folder_components = folders[folderPos].folder_components;
@@ -30,7 +37,11 @@ export default function NotesCreator() {
 
     const [selectedTab, setSelectedTab] = useState("write");
 
-    const [value, setValue] = useState(notepage.content)
+    console.log(notepage.content)
+
+    function handleChange(evt) {
+        dispatch(updateNotes({ "content": evt, "notePos": notePos, "subPos": subPos, "folderPos": folderPos}))
+    }
 
 
     return (
@@ -42,9 +53,9 @@ export default function NotesCreator() {
                     <div className=" mt-16">
                         <div className="h-full border">
                             <ReactMde
-                                value={value}
+                                value={notepage.content}
                                 className=" p-1 block w-full pl-1 py-1 border border-gray-100 text-gray-900 rounded hover:border-gray-300"
-                                onChange={setValue}
+                                onChange={handleChange}
                                 selectedTab={selectedTab}
                                 onTabChange={setSelectedTab}
                                 generateMarkdownPreview={markdown =>
