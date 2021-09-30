@@ -4,18 +4,14 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateNotes } from "../features/notesSlice";
-import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 
 export default function NotesCreator() {
 
     const dispatch = useDispatch();
 
-    const { folderPos, subPos, notePos, uuid } = useParams();
+    const { folderPos, subPos, notePos } = useParams();
 
     const { folders } = useSelector((state) => state.folders);
-    console.log("FOLDERS")
-    console.log(folders);
-    console.log(folderPos, subPos, notePos, uuid);
 
     let notepage = "";
     const folder_components = folders[folderPos].folder_components;
@@ -36,8 +32,6 @@ export default function NotesCreator() {
     });
 
     const [selectedTab, setSelectedTab] = useState("write");
-
-    console.log(notepage.content)
 
     function handleChange(evt) {
         dispatch(updateNotes({ "content": evt, "notePos": notePos, "subPos": subPos, "folderPos": folderPos}))

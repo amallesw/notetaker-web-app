@@ -1,9 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import Select from 'react-select';
-import { createPage } from '../features/notesSlice';
 import { useSelector } from 'react-redux';
 import AddNewPage2 from './AddNewPage2';
 
@@ -20,16 +18,13 @@ export default function AddNewPage({ showModal, setShowModal }) {
         folder_name: folder.folder_name,
     }));
 
-
-    let [isOpen, setIsOpen] = useState(true);
-
     function closeModal() {
         setOpenP2(false);
         setShowModal(false);
         setOpenP1(true);
     }
 
-    const { register, handleSubmit, reset, formState, formState: { errors, isSubmitSuccessful }, control } = useForm();
+    const { handleSubmit, reset, control } = useForm();
 
     const onSubmit = submitData => {
         reset({ "folderPos": "" })
@@ -41,7 +36,7 @@ export default function AddNewPage({ showModal, setShowModal }) {
 
     return (
         <>
-            {showModal ? (<Transition appear show={isOpen} as={Fragment}>
+            {showModal ? (<Transition appear show={true} as={Fragment}>
                 <Dialog
                     as="div"
                     className="fixed inset-0 z-10 overflow-y-auto"

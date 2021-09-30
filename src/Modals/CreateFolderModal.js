@@ -1,11 +1,10 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { createFolder } from '../features/notesSlice';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 export default function CreateFolderModal({ showModal, setShowModal }) {
-    let [isOpen, setIsOpen] = useState(true)
 
     const dispatch = useDispatch();
 
@@ -13,7 +12,7 @@ export default function CreateFolderModal({ showModal, setShowModal }) {
         setShowModal(false);
     }
 
-    const { register, handleSubmit, reset, formState, formState: { errors, isSubmitSuccessful } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = submitData => {
         dispatch(createFolder(submitData));
@@ -25,7 +24,7 @@ export default function CreateFolderModal({ showModal, setShowModal }) {
 
     return (
         <>
-            {showModal ? (<Transition appear show={isOpen} as={Fragment}>
+            {showModal ? (<Transition appear show={true} as={Fragment}>
                 <Dialog
                     as="div"
                     className="fixed inset-0 z-10 overflow-y-auto"

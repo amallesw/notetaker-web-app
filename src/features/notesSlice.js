@@ -67,7 +67,6 @@ export const notesSlice = createSlice({
             NODE_ID++;
         },
         updateNotes: (state, action) => {
-            console.log(action.payload);
 
             const folder_components = state.folders[action.payload.folderPos].folder_components;
             if (action.payload.notePos === "-1") {

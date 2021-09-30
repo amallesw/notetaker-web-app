@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 
 export default function AddNewPage2({ folderPos, closeModal }) {
 
-    const { register, handleSubmit, reset, formState, formState: { errors, isSubmitSuccessful }, control } = useForm();
+    const { register, handleSubmit, reset, control } = useForm();
 
     const { folders } = useSelector((state) => state.folders);
 
