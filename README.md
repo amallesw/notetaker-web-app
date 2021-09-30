@@ -1,3 +1,5 @@
+This is a web app that implements Redux Toolkit in order to make an organized system to create folders, subfolders, and notepage objects.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
