@@ -86,6 +86,7 @@ export default function AddNewPage({ showModal, setShowModal }) {
                                         <Controller
                                             name="folderPos"
                                             control={control}
+                                            rules={{ required: true }}
                                             render={({ field }) => (
                                                 <Select
                                                     className="mt-8"
@@ -98,10 +99,11 @@ export default function AddNewPage({ showModal, setShowModal }) {
                                         />
 
                                         <div>
-                                            <input
-                                                type="submit"
-                                                className="mt-8 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                            />
+                                            <button
+                                            type="submit"
+                                            className="mt-8 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500">
+                                                Next
+                                            </button>
                                         </div>
                                     </form>
 

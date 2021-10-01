@@ -81,6 +81,7 @@ export default function AddNewItem({ showModal, setShowModal }) {
                                         name="folderPos"
                                         isClearable
                                         control={control}
+                                        rules={{ required: true }}
                                         render={({ field }) => (
                                             <Select
                                                 className="mt-8"
