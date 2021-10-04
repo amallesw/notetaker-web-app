@@ -14,6 +14,9 @@ export const notesSlice = createSlice({
             const folder_name = action.payload.folder_name;
 
             state.folders.push({ id: id, folder_name: folder_name, folder_components: [] });
+
+            localStorage.setItem('folders', state.folders);
+
             NODE_ID++;
         },
 
@@ -30,6 +33,9 @@ export const notesSlice = createSlice({
                         subfolder_pages: []
                     }
                 });
+
+            localStorage.setItem('folders', state.folders);
+
             NODE_ID++;
         },
         createPage: (state, action) => {
@@ -64,6 +70,9 @@ export const notesSlice = createSlice({
                         }
                     })
             }
+
+            localStorage.setItem('folders', state.folders);
+
             NODE_ID++;
         },
         updateNotes: (state, action) => {
@@ -75,6 +84,8 @@ export const notesSlice = createSlice({
             else {
                 folder_components[action.payload.subPos].elements.subfolder_pages[action.payload.notePos].elements.content = action.payload.content;
             }
+
+            localStorage.setItem('folders', state.folders);
         }
     }
 });

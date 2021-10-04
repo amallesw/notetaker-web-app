@@ -17,6 +17,10 @@ export default function Sidebar() {
     const [showModalAddSubfolder, setShowModalAddfolder] = useState(false);
     const [showModalAddNotepage, setShowModalAddNotepage] = useState(false);
     const { folders } = useSelector((state) => state.folders);
+    // const folders = localStorage;
+    // const [folders, setFolders] = useState(localStorage.getItem("folders"));
+
+    // console.log(JSON.parse(folders));
 
     function openModal() {
         setShowModal(true);
@@ -99,13 +103,6 @@ export default function Sidebar() {
                                                     }
                                                 })}
                                             </TreeItem>
-
-                                            {/* <button
-                                                onClick={openModalAdd}
-                                            >
-                                                +
-                                            </button>
-                                            <AddNewItem showModal={showModalAdd} setShowModal={setShowModalAdd} folderPos={}/> */}
                                         </div>
                                     );
                                 })
